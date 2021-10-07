@@ -5,6 +5,6 @@
  
  To use it, copy an Env file to the same directory as the programs .exe and copy the name without the extension (easy way to do it is click on the file, hit F2, then hit CTRL + C).
  
- Double Click the .exe and paste the name of the env in the .exe's root directory, and the file should magically spawn in the newly created "output" folder.
+ Double Click the .exe and paste into the window the name of the env that's in the .exe's root directory (without the extension), and the file should magically spawn in the newly created "output" folder.
 
 After conversion, the only thing that will likely need adjusting per field will be the Bloom Dark Level under the "Lighting Section" which you can use the template for.
