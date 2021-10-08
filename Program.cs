@@ -12,7 +12,8 @@ namespace Env_Convert_Maybe
         static void Main()
         {
             System.IO.File.Delete("resultfile");
-            start:
+        start:
+            versionGot = null;
             System.IO.Directory.CreateDirectory("output");
             Console.WriteLine("Enter Royal ENV Name (without the .ENV)\n");
             string envFileInput = Console.ReadLine() + ".ENV";
@@ -31,7 +32,6 @@ namespace Env_Convert_Maybe
         }
         public static void EnvRead(string fileInput)
         {            
-            int envVersion = Convert.ToInt32(versionGot);
             Console.WriteLine("\nEnv Version: " + versionGot);
             int envStep = 0;    //split up the byte replacing into chunks
             int[] envCoords = new int[4];
