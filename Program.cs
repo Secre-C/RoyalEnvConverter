@@ -58,7 +58,7 @@ namespace Env_Convert_Maybe
             {
                 envCoords[0] = 0x21C;
                 envCoords[1] = 32;
-                envCoords[2] = 0x290;
+                envCoords[2] = lengthGot - 152;
             }
 
             envStep++;
