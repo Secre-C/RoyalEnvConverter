@@ -26,23 +26,15 @@ namespace Env_Convert_Maybe
             System.IO.File.Delete("output\\" + envFileInput);
             System.IO.File.Copy("resultfile", "output\\" + envFileInput);
             System.IO.File.Delete("resultfile");
-            Console.WriteLine("\nSuccessfully Converted (I think).\n");
+            Console.WriteLine("\nSuccessfully Converted\n");
             goto start;
         }
         public static void EnvRead(string fileInput)
-        {
-            //int envBuffer;
-            //int envVersion = Convert.ToInt32(versionGot);
-            /*if (envVersion > 01105040)
-            {
-                envBuffer = 16;
-            }
-            else
-            {
-                envBuffer = 0;
-            } */
+        {            
+            int envVersion = Convert.ToInt32(versionGot);
+            Console.WriteLine("\nEnv Version: " + versionGot);
             int envStep = 0;    //split up the byte replacing into chunks
-            int[] envCoords = new int[3];
+            int[] envCoords = new int[4];
         start:
             if (envStep == 0)
             {
@@ -62,6 +54,12 @@ namespace Env_Convert_Maybe
                 envCoords[1] = 4;
                 envCoords[2] = lengthGot - 8;
             }
+            else if (envStep == 3)
+            {
+                envCoords[0] = 0x21C;
+                envCoords[1] = 32;
+                envCoords[2] = 0x290;
+            }
 
             envStep++;
             byte[] envBase = new byte[envCoords[1]];
@@ -76,7 +74,7 @@ namespace Env_Convert_Maybe
             bw.BaseStream.Position = x;
             bw.Write(envBase);
             bw.Close();
-            if (envStep <= 2)
+            if (envStep <= 3)
             {
                 goto start;
             }
