@@ -8,3 +8,5 @@
  Double Click the .exe and paste into the window the name of the env that's in the .exe's root directory (without the extension), and the file should magically spawn in the newly created "output" folder.
 
 After conversion, the only thing that will likely need adjusting per field will be the Bloom Dark Level under the "Lighting Section" which you can use the template for.
+
+Removed the release section, you can still download it via the code thingy
