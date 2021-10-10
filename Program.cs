@@ -46,13 +46,13 @@ namespace Env_Convert_Maybe
             {
                 envCoords[0] = 0x23C;
                 envCoords[1] = 21;
-                envCoords[2] = lengthGot - 100;
+                envCoords[2] = lengthGot - 96;
             }
             else if (envStep == 2)
             {
-                envCoords[0] = 0x294;
-                envCoords[1] = 4;
-                envCoords[2] = lengthGot - 8;
+                envCoords[0] = 0x272;
+                envCoords[1] = 38;
+                envCoords[2] = lengthGot - 42;
             }
             else if (envStep == 3)
             {
