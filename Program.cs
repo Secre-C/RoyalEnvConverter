@@ -80,7 +80,7 @@ namespace Env_Convert_Maybe
             bw.BaseStream.Position = x;
             bw.Write(envBase);
             bw.Close();
-            if (envStep <= 4)
+            if (envStep <= 3)
             {
                 goto start;
             }
