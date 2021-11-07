@@ -40,25 +40,31 @@ namespace Env_Convert_Maybe
             {
                 envCoords[0] = 0x11;
                 envCoords[1] = 0x1B7;
-                envCoords[2] = 0x11;
+                envCoords[2] = 0x11; //Field, character, and fog sections
             }
             else if (envStep == 1)
             {
                 envCoords[0] = 0x23C;
                 envCoords[1] = 21;
-                envCoords[2] = lengthGot - 96;
+                envCoords[2] = lengthGot - 96; //color grading I'm 90% sure
             }
             else if (envStep == 2)
             {
                 envCoords[0] = 0x272;
                 envCoords[1] = 38;
-                envCoords[2] = lengthGot - 42;
+                envCoords[2] = lengthGot - 42; //sky color and physics section
             }
             else if (envStep == 3)
             {
                 envCoords[0] = 0x21C;
                 envCoords[1] = 32;
-                envCoords[2] = lengthGot - 152;
+                envCoords[2] = lengthGot - 152; //field shadow section
+            }
+            else if (envStep == 4)
+            {
+                envCoords[0] = 0x1C9;
+                envCoords[1] = 36; //was 40
+                envCoords[2] = lengthGot - 276; //lighting section??
             }
 
             envStep++;
@@ -74,7 +80,7 @@ namespace Env_Convert_Maybe
             bw.BaseStream.Position = x;
             bw.Write(envBase);
             bw.Close();
-            if (envStep <= 3)
+            if (envStep <= 4)
             {
                 goto start;
             }
