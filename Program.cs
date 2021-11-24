@@ -46,7 +46,7 @@ namespace Env_Convert_Maybe
             {
                 envCoords[0] = 0x23C;
                 envCoords[1] = 21;
-                envCoords[2] = lengthGot - 96; //color grading I'm 90% sure
+                envCoords[2] = lengthGot - 83; //color grading I'm 99% sure
             }
             else if (envStep == 2)
             {
