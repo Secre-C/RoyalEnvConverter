@@ -7,4 +7,6 @@
  
  Double Click the .exe and paste into the window the name of the env that's in the .exe's root directory (without the extension), and the file should magically spawn in the newly created "output" folder.
 
+You may still have to make adjustments using the template since royal env has new values and properties that don't exist in vanilla p5, but this should be good enough 8/10 times
+
 Removed the release section, you can still download it via the code thingy, preferably using the desktop app so you can keep it up to date.
