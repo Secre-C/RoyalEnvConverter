@@ -34,25 +34,26 @@ namespace Env_Convert_Maybe
         {            
             Console.WriteLine("\nEnv Version: " + versionGot);
             int envStep = 0;    //split up the byte replacing into chunks
+            int lightStep = 0; //split up the light value replacing into chunks
             int[] envCoords = new int[4];
         start:
             if (envStep == 0)
             {
-                envCoords[0] = 0x11;
-                envCoords[1] = 0x1B7;
-                envCoords[2] = 0x11; //Field, character, and fog sections
+                envCoords[0] = 0x10;
+                envCoords[1] = 0x1B9;
+                envCoords[2] = 0x10; //Field, character, and fog sections (same as template)
             }
             else if (envStep == 1)
             {
                 envCoords[0] = 0x23C;
-                envCoords[1] = 21;
-                envCoords[2] = lengthGot - 104; //color grading I'm 99% sure
+                envCoords[1] = 54;
+                envCoords[2] = lengthGot - 104; //color grading
             }
             else if (envStep == 2)
             {
                 envCoords[0] = 0x272;
                 envCoords[1] = 38;
-                envCoords[2] = lengthGot - 42; //sky color and physics section
+                envCoords[2] = lengthGot - 42; //34 - Physics section; 4 - Sky Coloring 
             }
             else if (envStep == 3)
             {
@@ -60,14 +61,45 @@ namespace Env_Convert_Maybe
                 envCoords[1] = 32;
                 envCoords[2] = lengthGot - 152; //field shadow section
             }
-            else if (envStep == 4)
+           /* else if (envStep == 7)
             {
-                envCoords[0] = 0x1C9;
-                envCoords[1] = 36; //was 40
-                envCoords[2] = lengthGot - 276; //lighting section??
+                envCoords[0] = 0x1F2;
+                envCoords[1] = 59;
+                envCoords[2] = lengthGot - 211; //unknown section (Size varies between envs, will look into a solution in about 842790287345097 years)
+            } */
+            else if (envStep == 5) //field lighting section
+            {
+                if (lightStep == 0)
+                {
+                    envCoords[0] = 0x1C9;
+                    envCoords[1] = 4;
+                    envCoords[2] = 0x1C9; // 4 bools at the beginning
+                }
+                else if (lightStep == 1)
+                {
+                    envCoords[0] = 0x1CD;
+                    envCoords[1] = 20;
+                    envCoords[2] = 0x1D4; // bloom amount - glare sensitivity
+                }
+                else if (lightStep == 2)
+                {
+                    envCoords[0] = 0x1E1;
+                    envCoords[1] = 16;
+                    envCoords[2] = 0x240; // glare length - glare mode
+                }
             }
-
-            envStep++;
+            if (envStep < 5)
+            {
+                envStep++;
+            }   
+            else
+            {
+                lightStep++;
+            }
+            if (lightStep == 3)
+            {
+                envStep = 6;
+            }
             byte[] envBase = new byte[envCoords[1]];
             using (BinaryReader reader = new BinaryReader(new FileStream(fileInput, FileMode.Open)))
             {
@@ -80,7 +112,7 @@ namespace Env_Convert_Maybe
             bw.BaseStream.Position = x;
             bw.Write(envBase);
             bw.Close();
-            if (envStep <= 3)
+            if (envStep <= 4) //checks which step of my patented ENV copy paste process the program is on
             {
                 goto start;
             }
