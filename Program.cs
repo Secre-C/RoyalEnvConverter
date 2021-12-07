@@ -61,13 +61,19 @@ namespace Env_Convert_Maybe
                 envCoords[1] = 32;
                 envCoords[2] = lengthGot - 152; //field shadow section
             }
-           /* else if (envStep == 7)
+            else if (envStep == 4)
             {
-                envCoords[0] = 0x1F2;
-                envCoords[1] = 59;
-                envCoords[2] = lengthGot - 211; //unknown section (Size varies between envs, will look into a solution in about 842790287345097 years)
-            } */
-            else if (envStep == 5) //field lighting section
+                envCoords[0] = 0x206;
+                envCoords[1] = 22;
+                envCoords[2] = lengthGot - 174; //unknown section
+            }
+            else if (envStep == 5)
+            {
+                envCoords[0] = 0x255;
+                envCoords[1] = 20;
+                envCoords[2] = lengthGot - 211; //unknown section
+            }
+            else if (envStep == 6) //field lighting section
             {
                 if (lightStep == 0)
                 {
@@ -88,7 +94,7 @@ namespace Env_Convert_Maybe
                     envCoords[2] = 0x240; // glare length - glare mode
                 }
             }
-            if (envStep < 5)
+            if (envStep < 6)
             {
                 envStep++;
             }   
@@ -98,7 +104,7 @@ namespace Env_Convert_Maybe
             }
             if (lightStep == 3)
             {
-                envStep = 6;
+                envStep = 7;
             }
             byte[] envBase = new byte[envCoords[1]];
             using (BinaryReader reader = new BinaryReader(new FileStream(fileInput, FileMode.Open)))
@@ -112,7 +118,7 @@ namespace Env_Convert_Maybe
             bw.BaseStream.Position = x;
             bw.Write(envBase);
             bw.Close();
-            if (envStep <= 4) //checks which step of my patented ENV copy paste process the program is on
+            if (envStep <= 6) //checks which step of my patented ENV copy paste process the program is on
             {
                 goto start;
             }
