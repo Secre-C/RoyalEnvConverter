@@ -7,6 +7,4 @@
  
  Double Click the .exe and paste into the window the name of the env that's in the .exe's root directory (without the extension), and the file should magically spawn in the newly created "output" folder.
 
-After conversion, the only thing that will likely need adjusting per field will be the "Lighting Section" which you can use the template for. The preset Lighting values I currently have are fine for the most part, but fields are too varied.
-
 Removed the release section, you can still download it via the code thingy, preferably using the desktop app so you can keep it up to date.
