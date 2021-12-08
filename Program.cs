@@ -9,26 +9,35 @@ namespace Env_Convert_Maybe
     {
         public static string versionGot;
         public static int lengthGot;
+        public static int versionNum;
+        public static bool yn = true;
         static void Main()
         {
             System.IO.File.Delete("resultfile");
+            Console.WriteLine("Welcome To Fucking");
         start:
             versionGot = null;
             System.IO.Directory.CreateDirectory("output");
-            Console.WriteLine("Enter Royal ENV Name (without the .ENV)\n");
+            Console.WriteLine("\nEnter Royal ENV Name (without the .ENV)\n");
             string envFileInput = Console.ReadLine() + ".ENV";
             System.IO.File.Delete("resultfile");
             System.IO.File.Copy("basefile", "resultfile");
             File.Delete("output\\" + envFileInput);
-            //checks to see if Input env is from Royal
-            EnvLength(envFileInput);
-            EnvCheck(envFileInput);
-            EnvRead(envFileInput);
-            System.IO.File.Delete("output\\" + envFileInput);
-            System.IO.File.Copy("resultfile", "output\\" + envFileInput);
-            System.IO.File.Delete("resultfile");
-            Console.WriteLine("\nSuccessfully Converted\n");
-            goto start;
+            EnvLength(envFileInput); //gets env length
+            EnvCheck(envFileInput); //gets env version
+            if (yn == true)
+            {
+                EnvRead(envFileInput);
+                System.IO.File.Delete("output\\" + envFileInput);
+                System.IO.File.Copy("resultfile", "output\\" + envFileInput);
+                System.IO.File.Delete("resultfile");
+                Console.WriteLine("\nSuccessfully Converted\n");
+                goto start;
+            }
+            else
+            {
+                goto start;
+            }
         }
         public static void EnvRead(string fileInput)
         {            
@@ -41,7 +50,7 @@ namespace Env_Convert_Maybe
             {
                 envCoords[0] = 0x10;
                 envCoords[1] = 0x1B9;
-                envCoords[2] = 0x10; //Field, character, and fog sections (same as template)
+                envCoords[2] = 0x10; //Field, character, and fog sections (same as vanilla)
             }
             else if (envStep == 1)
             {
@@ -132,6 +141,26 @@ namespace Env_Convert_Maybe
                 versionGot += checker.ReadByte().ToString("X2");
             }
             checker.Close();
+            int versionNum = Convert.ToInt32(versionGot);
+            if (versionNum < 01105100)
+            {
+                Console.WriteLine("\nThis seems to be a Vanilla ENV, and likely doesn't need conversion, so I recommend testing in-game before converting.\n\nWould you like to proceed? (y/n)\n");
+                string yesno = Console.ReadLine();
+                if (yesno == "y")
+                {
+                    yn = true;
+                    return;
+                }
+                else
+                {
+                    yn = false;
+                    return;
+                }
+            }
+            else
+            {
+                return;
+            }
         }
         static void EnvLength(string fileInput)
         {
