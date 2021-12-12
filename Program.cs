@@ -7,41 +7,65 @@ namespace Env_Convert_Maybe
 {
     public static class Program
     {
+        public static int filePlace = 0;
+        public static int fileAmount;
         public static string versionGot;
         public static int lengthGot;
         public static int versionNum;
         public static bool yn = true;
+        public static bool decideVanilla = false;
+        public static bool decision;
         static void Main()
         {
             System.IO.File.Delete("resultfile");
             Console.WriteLine("Welcome To Fucking");
+            int envPlace = 0;
         start:
             versionGot = null;
             System.IO.Directory.CreateDirectory("output");
-            Console.WriteLine("\nEnter Royal ENV Name (without the .ENV)\n");
-            string envFileInput = Console.ReadLine() + ".ENV";
+            string[] envFileInput = Directory.GetFiles("input\\", "*.env", SearchOption.TopDirectoryOnly);
+            fileAmount = envFileInput.Length;
             System.IO.File.Delete("resultfile");
             System.IO.File.Copy("basefile", "resultfile");
-            File.Delete("output\\" + envFileInput);
-            EnvLength(envFileInput); //gets env length
-            EnvCheck(envFileInput); //gets env version
+            File.Delete("output\\" + envFileInput[envPlace]);
+            EnvLength(envFileInput[envPlace]); //gets env length
+            EnvCheck(envFileInput[envPlace]); //gets env version
             if (yn == true)
             {
-                EnvRead(envFileInput);
-                System.IO.File.Delete("output\\" + envFileInput);
-                System.IO.File.Copy("resultfile", "output\\" + envFileInput);
+                EnvRead(envFileInput[envPlace]);
+                System.IO.File.Delete("output\\" + envFileInput[envPlace]);
+                System.IO.File.Copy("resultfile", "output\\" + envFileInput[envPlace]);
                 System.IO.File.Delete("resultfile");
                 Console.WriteLine("\nSuccessfully Converted\n");
-                goto start;
+                envPlace++;
+                if (envPlace !=fileAmount)
+                {
+                    goto start;
+                }
+                else
+                {
+                    Console.WriteLine("Conversion success! Press any button to close the program");
+                    Console.ReadKey();
+                    return;
+                }
             }
             else
             {
-                goto start;
+                envPlace++;
+                if (envPlace != fileAmount)
+                {
+                    goto start;
+                }
+                else
+                {
+                    Console.WriteLine("\nConversion success! Press any button to close the program");
+                    Console.ReadKey();
+                    return;
+                }
             }
         }
         public static void EnvRead(string fileInput)
         {            
-            Console.WriteLine("\nEnv Version: " + versionGot);
             int envStep = 0;    //split up the byte replacing into chunks
             int lightStep = 0; //split up the light value replacing into chunks
             int[] envCoords = new int[4];
@@ -142,23 +166,28 @@ namespace Env_Convert_Maybe
             }
             checker.Close();
             int versionNum = Convert.ToInt32(versionGot);
+            Console.WriteLine("\nEnv Version: " + versionGot);
             if (versionNum < 01105100)
             {
-                Console.WriteLine("\nThis seems to be a Vanilla ENV, and likely doesn't need conversion, so I recommend testing in-game before converting.\n\nWould you like to proceed? (y/n)\n");
-                string yesno = Console.ReadLine();
-                if (yesno == "y")
+                if (decideVanilla == false)
                 {
-                    yn = true;
-                    return;
+                    Console.WriteLine("\nOne of the ENVs in the input seems to already work in vanilla p5, and may not work properly after conversion. Would you like to convert them anyway? This question will only be asked once. y/n \n");
+                    string yesno = Console.ReadLine();
+                    if (yesno == "y")
+                    {
+                        decision = true;
+                    }
+                    else
+                    {
+                        decision = false;
+                    }
+                    decideVanilla = true;
                 }
-                else
-                {
-                    yn = false;
-                    return;
-                }
-            }
+                yn = decision;
+            }   
             else
             {
+                yn = true;
                 return;
             }
         }
