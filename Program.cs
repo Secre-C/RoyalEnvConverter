@@ -78,35 +78,17 @@ namespace Env_Convert_Maybe
             }
             else if (envStep == 1)
             {
-                envCoords[0] = 0x23C;
-                envCoords[1] = 54;
-                envCoords[2] = lengthGot - 104; //color grading
+                envCoords[0] = 0x24D;
+                envCoords[1] = 104;
+                envCoords[2] = lengthGot - 104; //color grading (21 bytes), physics section (34 bytes), second unknown section (41 bytes?), and sky coloring (4 bytes).
             }
             else if (envStep == 2)
             {
-                envCoords[0] = 0x272;
-                envCoords[1] = 38;
-                envCoords[2] = lengthGot - 42; //34 - Physics section; 4 - Sky Coloring 
+                envCoords[0] = 0x1F2;
+                envCoords[1] = 91;
+                envCoords[2] = lengthGot - 211; //unknown section (59 bytes), Field Shadow Section (32 bytes)
             }
-            else if (envStep == 3)
-            {
-                envCoords[0] = 0x21C;
-                envCoords[1] = 32;
-                envCoords[2] = lengthGot - 152; //field shadow section
-            }
-            else if (envStep == 4)
-            {
-                envCoords[0] = 0x206;
-                envCoords[1] = 22;
-                envCoords[2] = lengthGot - 174; //unknown section
-            }
-            else if (envStep == 5)
-            {
-                envCoords[0] = 0x255;
-                envCoords[1] = 20;
-                envCoords[2] = lengthGot - 211; //unknown section
-            }
-            else if (envStep == 6) //field lighting section
+            else if (envStep == 3) //field lighting section
             {
                 if (lightStep == 0)
                 {
@@ -127,7 +109,7 @@ namespace Env_Convert_Maybe
                     envCoords[2] = 0x240; // glare length - glare mode
                 }
             }
-            if (envStep < 6)
+            if (envStep < 3)
             {
                 envStep++;
             }   
@@ -137,7 +119,7 @@ namespace Env_Convert_Maybe
             }
             if (lightStep == 3)
             {
-                envStep = 7;
+                envStep = 4;
             }
             byte[] envBase = new byte[envCoords[1]];
             using (BinaryReader reader = new BinaryReader(new FileStream(fileInput, FileMode.Open)))
@@ -151,7 +133,7 @@ namespace Env_Convert_Maybe
             bw.BaseStream.Position = x;
             bw.Write(envBase);
             bw.Close();
-            if (envStep <= 6) //checks which step of my patented ENV copy paste process the program is on
+            if (envStep <= 3) //checks which step of my patented ENV copy paste process the program is on
             {
                 goto start;
             }
