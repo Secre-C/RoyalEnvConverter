@@ -164,23 +164,10 @@ namespace Env_Convert_Maybe
             checker.Close();
             int versionNum = Convert.ToInt32(versionGot);
             Console.WriteLine("\nEnv Version: " + versionGot);
-            if (versionNum < 01105100)
+            if (versionNum <= 01105090)
             {
-                if (decideVanilla == false)
-                {
-                    Console.WriteLine("\nOne of the ENVs in the input seems to already work in vanilla p5, and may not work properly after conversion. Would you like to convert them anyway? This question will only be asked once. y/n \n");
-                    string yesno = Console.ReadLine();
-                    if (yesno == "y")
-                    {
-                        decision = true;
-                    }
-                    else
-                    {
-                        decision = false;
-                    }
-                    decideVanilla = true;
-                }
-                yn = decision;
+                yn = false;
+                return;
             }   
             else
             {
