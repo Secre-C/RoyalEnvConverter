@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "bG3Mb1VFNavv6+WwlPv5wgq9rqXjAlwoOUKcNkgpfKF2ASfhGHc+jTvI3iPKqXO8JQPxJxdo+NjzBHCoUGr46A==",
+  "success": true,
+  "projectFilePath": "D:\\Github\\EnvRConverter\\EnvConverter\\EnvConverter\\EnvConverter.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\gabir\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.21\\microsoft.netcore.app.host.win-x64.3.1.21.nupkg.sha512"
+  ],
+  "logs": []
+}

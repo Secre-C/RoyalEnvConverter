@@ -1,0 +1,5 @@
+D:\Github\EnvRConverter\EnvConverter\EnvConverter\bin\Release\netcoreapp3.1\publish\EnvConverter.exe
+D:\Github\EnvRConverter\EnvConverter\EnvConverter\bin\Release\netcoreapp3.1\publish\EnvConverter.dll
+D:\Github\EnvRConverter\EnvConverter\EnvConverter\bin\Release\netcoreapp3.1\publish\EnvConverter.deps.json
+D:\Github\EnvRConverter\EnvConverter\EnvConverter\bin\Release\netcoreapp3.1\publish\EnvConverter.runtimeconfig.json
+D:\Github\EnvRConverter\EnvConverter\EnvConverter\bin\Release\netcoreapp3.1\publish\EnvConverter.pdb
