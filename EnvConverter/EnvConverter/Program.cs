@@ -37,7 +37,7 @@ namespace Env_Convert_Maybe
             {
                 EnvRead(envFileInput[envPlace]);
                 System.IO.File.Delete("output\\" + envFileInput[envPlace]);
-                deMoist();
+                DeMoist();
                 System.IO.File.Copy("resultfile", "output\\" + envFileInput[envPlace]);
                 System.IO.File.Delete("resultfile");
                 Console.WriteLine("\nSuccessfully Converted\n");
@@ -106,7 +106,7 @@ namespace Env_Convert_Maybe
                     envCoords[1] = 20;
                     envCoords[2] = 0x1D3; // bloom amount - glare sensitivity
                 }
-                else if (lightStep == 1 && (versionNum == 1105100))
+                else if (lightStep == 1)
                 {
                     envCoords[0] = 0x1CD;
                     envCoords[1] = 20;
@@ -118,7 +118,7 @@ namespace Env_Convert_Maybe
                     envCoords[1] = 16;
                     envCoords[2] = 0x237; // glare length - glare mode
                 }
-                else if (lightStep == 2 && (versionNum == 1105100))
+                else if (lightStep == 2)
                 {
                     envCoords[0] = 0x1E1;
                     envCoords[1] = 16;
@@ -193,7 +193,7 @@ namespace Env_Convert_Maybe
         Console.WriteLine("\nBytes: " + lfileLength);
         binReader.Close();
         }
-        static void deMoist() //divide f32 Field1F2 by 4
+        static void DeMoist() //divide f32 Field1F2 by 4
         {
             moisty = null;
             BinaryReader checker = new BinaryReader(new FileStream("resultfile", FileMode.Open));
@@ -206,11 +206,11 @@ namespace Env_Convert_Maybe
             uint num = uint.Parse(moisty, System.Globalization.NumberStyles.AllowHexSpecifier);
             byte[] floatVals = BitConverter.GetBytes(num);
             float f = BitConverter.ToSingle(floatVals, 0);
-            f = f / 4;
+            f /= 4;
             var bytes = BitConverter.GetBytes(f);
             var s = BitConverter.ToInt32(bytes, 0);
             string newfloat = s.ToString("X2");
-            byte[] byteArray = StringToByteArrayFastest(moisty);
+            byte[] byteArray = StringToByteArrayFastest(newfloat);
             BinaryWriter div4 = new BinaryWriter(File.OpenWrite("resultfile"));
             int x = 0x1F2;
             div4.BaseStream.Position = x;
