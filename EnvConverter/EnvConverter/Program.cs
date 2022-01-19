@@ -30,6 +30,7 @@ namespace Env_Convert_Maybe
             System.IO.File.Delete("resultfile");
             System.IO.File.Copy("basefile", "resultfile");
             File.Delete("output\\" + envFileInput[envPlace]);
+            Console.WriteLine("\n" + envFileInput[envPlace]);
             EnvLength(envFileInput[envPlace]); //gets env length
             EnvCheck(envFileInput[envPlace]); //gets env version
             if (yn == true)
@@ -99,25 +100,25 @@ namespace Env_Convert_Maybe
                     envCoords[1] = 4;
                     envCoords[2] = 0x1C9; // 4 bools at the beginning
                 }
-                else if (lightStep == 1 && (versionNum == 01105090))
+                else if (lightStep == 1 && (versionNum == 1105090))
                 {
                     envCoords[0] = 0x1CD;
                     envCoords[1] = 20;
                     envCoords[2] = 0x1D3; // bloom amount - glare sensitivity
                 }
-                else if (lightStep == 1)
+                else if (lightStep == 1 && (versionNum == 1105100))
                 {
                     envCoords[0] = 0x1CD;
                     envCoords[1] = 20;
                     envCoords[2] = 0x1D4; // bloom amount - glare sensitivity
                 }
-                else if (lightStep == 2 && (versionNum == 01105090))
+                else if (lightStep == 2 && (versionNum == 1105090))
                 {
                     envCoords[0] = 0x1E1;
                     envCoords[1] = 16;
                     envCoords[2] = 0x237; // glare length - glare mode
                 }
-                else if (lightStep == 2)
+                else if (lightStep == 2 && (versionNum == 1105100))
                 {
                     envCoords[0] = 0x1E1;
                     envCoords[1] = 16;
@@ -164,7 +165,7 @@ namespace Env_Convert_Maybe
             checker.Close();
             int versionNum = Convert.ToInt32(versionGot);
             Console.WriteLine("\nEnv Version: " + versionGot);
-            if (versionNum <= 01105090)
+            if (versionNum < 01105090)
             {
                 yn = false;
                 return;
